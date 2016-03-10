@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration monitorInterval="30">
+
+<Appenders>
+	<Console name="STDOUT" target="SYSTEM_OUT">
+		<PatternLayout pattern="%d %-5p  [%t] %c{2} (%F:%L) (Método: %M) - %m%n" />
+		<ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY" />
+	</Console>
+
+	<Console name="LogConsola" target="SYSTEM_OUT">
+		<PatternLayout pattern="%d %-5p  [%t] %c{2} (%F:%L) (Método: %M) - %m%n" />
+	</Console>
+
+	<File name="FileLogEntity" filename="logs/entity.txt" append="true">
+		<PatternLayout pattern="%d %-5p  [%t] %c{2} (%F:%L) (Método: %M) - %m%n" />
+	</File>
+</Appenders>
+<Loggers>
+	<Logger name="com.wpsnetwork.entidades" level="trace">
+		<AppenderRef ref="FileLogEntity" />
+		<AppenderRef ref="LogConsola" />
+	</Logger>
+	<Root level="trace">
+		<AppenderRef ref="STDOUT" />
+	</Root>
+</Loggers>
+</Configuration>
