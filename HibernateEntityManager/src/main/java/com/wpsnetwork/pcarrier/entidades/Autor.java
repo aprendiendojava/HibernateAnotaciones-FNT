@@ -14,11 +14,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Autor implements java.io.Serializable {
 	@Id
 	@GeneratedValue
@@ -28,6 +26,7 @@ public class Autor implements java.io.Serializable {
 
 	@ManyToMany( fetch=FetchType.LAZY, cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH})
 	@JoinTable( name="libro_autor", joinColumns=@JoinColumn( name="idAutor" ), inverseJoinColumns=@JoinColumn( name="idLibro"))
+	@JsonIgnore
 	private Set<Libro> libros = new HashSet<Libro>(0);
 
 	public Autor(String nombre) {

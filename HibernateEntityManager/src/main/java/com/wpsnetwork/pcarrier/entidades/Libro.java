@@ -15,12 +15,10 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class Libro implements java.io.Serializable {
+public class Libro implements java.io.Serializable, TableEntity {
 
 	@Id
 	@GeneratedValue
@@ -33,6 +31,7 @@ public class Libro implements java.io.Serializable {
 
 	@ManyToMany( fetch=FetchType.LAZY, cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH})
 	@JoinTable( name="libro_autor", joinColumns=@JoinColumn( name="idLibro" ), inverseJoinColumns=@JoinColumn( name="idAutor"))
+	@JsonIgnore
 	private Set<Autor> autores = new HashSet<Autor>(0);
 
 	@ManyToMany( fetch=FetchType.LAZY )
